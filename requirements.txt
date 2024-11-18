@@ -1,0 +1,6 @@
+requests
+arxiv
+pyyaml
+lark_oapi==1.3.6
+aiohttp
+base64

@@ -1,0 +1,28 @@
+# TODO: add papers by configuration file
+base_url: "https://arxiv.paperswithcode.com/api/v0/papers/"
+user_name: "KashiwaByte"
+repo_name: "RAG-VectorDatabase-arxiv-daily"
+show_authors: True
+show_links: True
+show_badge: True
+max_results: 100
+
+publish_readme: True
+publish_gitpage: False
+publish_wechat: False
+
+# file paths
+json_readme_path: './docs/RAG-VectorDatabase-arxiv-daily.json'
+
+
+
+md_readme_path: 'README.md'
+
+
+keywords:
+    "VectorDatabase":
+        filters: ["approximate AND nearest AND neighbor AND algorithms AND search"]
+    "RAG":
+        filters: ["RAG* AND LLM NOT rage"]
+
+
