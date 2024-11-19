@@ -23,6 +23,6 @@ keywords:
     "VectorDatabase":
         filters: ["approximate AND nearest AND neighbor AND algorithms AND search"]
     "RAG":
-        filters: ["RAG"]
+        filters: ["RAG* AND LLM"]
 
 
