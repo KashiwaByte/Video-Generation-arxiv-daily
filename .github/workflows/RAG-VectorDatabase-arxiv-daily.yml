@@ -44,6 +44,7 @@ jobs:
           pip install requests
           pip install pyyaml
           pip install lark_oapi
+          pip install sparkai
           
 
       
