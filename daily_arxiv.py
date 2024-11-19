@@ -60,16 +60,17 @@ def load_config(config_file: str) -> dict:
         OR = "OR"  # TODO
 
         def parse_filters(filters: list):
-            ret = ""
-            for idx in range(0, len(filters)):
-                filter = filters[idx]
-                if len(filter.split()) > 1:
-                    ret += EXCAPE + filter + EXCAPE
-                else:
-                    ret += QUOTA + filter + QUOTA
-                if idx != len(filters) - 1:
-                    ret += OR
-            return ret
+            # ret = ""
+            # for idx in range(0, len(filters)):
+            #     filter = filters[idx]
+            #     if len(filter.split()) > 1:
+            #         ret += EXCAPE + filter + EXCAPE
+            #     else:
+            #         ret += QUOTA + filter + QUOTA
+            #     if idx != len(filters) - 1:
+            #         ret += OR
+            # return ret
+            return filters[0]
 
         for k, v in config["keywords"].items():
             keywords[k] = parse_filters(v["filters"])
