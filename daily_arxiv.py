@@ -18,6 +18,8 @@ import hmac
 from urllib.parse import urlencode
 import lark_oapi as lark
 from lark_oapi.api.im.v1 import *
+from sparkai.llm.llm import ChatSparkLLM, ChunkPrintHandler
+from sparkai.core.messages import ChatMessage , SystemMessage
 
 
 FeishuAPPID = os.environ.get("APP_ID")
@@ -226,6 +228,50 @@ def get_cn_abstract(text):
 
     return cntext["trans_result"]["dst"]
 
+def get_summarize_abstract(text):
+    
+    APPId = os.environ.get("XFAPPID")
+    APISecret =  os.environ.get("XFAPISECRET")
+    APIKey = os.environ.get("XFAPIKEY")
+    
+    #星火认知大模型Spark Max的URL值，其他版本大模型URL值请前往文档（https://www.xfyun.cn/doc/spark/Web.html）查看
+    SPARKAI_URL = 'wss://spark-api.xf-yun.com/v4.0/chat'
+    #星火认知大模型调用秘钥信息，请前往讯飞开放平台控制台（https://console.xfyun.cn/services/bm35）查看
+    SPARKAI_APP_ID = APPId
+    SPARKAI_API_SECRET = APISecret
+    SPARKAI_API_KEY = APIKey
+    #星火认知大模型Spark Max的domain值，其他版本大模型domain值请前往文档（https://www.xfyun.cn/doc/spark/Web.html）查看
+    SPARKAI_DOMAIN = '4.0Ultra'
+    
+    spark = ChatSparkLLM(
+        spark_api_url=SPARKAI_URL,
+        spark_app_id=SPARKAI_APP_ID,
+        spark_api_key=SPARKAI_API_KEY,
+        spark_api_secret=SPARKAI_API_SECRET,
+        spark_llm_domain=SPARKAI_DOMAIN,
+        streaming=False,
+    )
+
+    messages = [SystemMessage(role = "system" , content='你是一个学术论文摘要的解析大师，你会接受到学术论文的摘要，理解后解析为如下两个格式1.解决了什么问题。2.有什么创新点。'), ChatMessage(
+        role="user",
+        content='超高分辨率（Uhr）遥感图像（RSI）（例如，100，000$\乘以$100，000像素或更多）对当前遥感多模态大型语言模型（RSMLLM）提出了重大挑战。如果选择将Uhr图像的大小调整为标准输入图像大小，则Uhr图像所包含的大量空间和上下文信息将被忽略。否则，这些图像的原始大小经常超过标准RSMLLM的令牌限制，使得难以处理整个图像并捕获长程依赖关系以基于丰富的视觉上下文来回答查询。在本文中，我们介绍了ImageRag for RS，这是一个无需训练的框架，用于解决分析Uhr遥感图像的复杂性。通过将Uhr遥感图像分析任务转化为图像的长上下文选择任务，设计了一种基于检索增强生成（RAG）技术的图像上下文检索机制（ImageRag）。ImageRag的核心创新在于它能够选择性地检索和关注Uhr图像中最相关的部分，作为与给定查询相关的视觉上下文。在该框架中，提出了快速路径和慢速路径来高效地处理该任务。ImageRag允许RSMLLMS管理来自Uhr RSI的大量上下文和空间信息，确保分析既准确又高效。'
+    ),ChatMessage(role = "assistant", content = """
+        一.问题解决
+        本文主要解决了超高分辨率（Uhr）遥感图像（RSI）在当前遥感多模态大型语言模型（RSMLLM）中处理困难的问题。具体而言，UhrRSI的大量空间和上下文信息难以被标准RSMLLM处理，因为这些图像要么需要调整大小以适应标准输入尺寸从而丢失重要信息，要么其原始大小超出令牌限制，使得捕捉长程依赖关系和基于丰富视觉上下文回答问题变得困难。
+        二.创新点
+        1.无需训练框架：介绍了ImageRag for RS，这是一个无需额外训练的框架，专门用于分析Uhr RSI。
+        2.基于检索增强生成（RAG）技术的机制：设计了一种新颖的图像上下文检索机制（ImageRag），通过将Uhr RSI分析任务转化为图像的长上下文选择任务，能够高效地选择性检索和关注与给定查询最相关的图像部分。
+        3.双路径处理：提出了快速路径和慢速路径两种方法来高效处理Uhr RSI，确保既能准确又能高效地管理大量上下文和空间信息。
+        """),
+       ChatMessage(role = "user", content = text ) ]
+   
+    handler = ChunkPrintHandler()
+    a = spark.generate([messages], callbacks=[handler])
+    print(a.generations[0][0].message.content)
+    raw_ans = a.generations[0][0].message.content
+    html_text = raw_ans.replace('\n', '<br>')
+    return f"<p>{html_text}</p>"
+
 
 def sent_to_feishu(update_time, paper_title, paper_url, repo_url, paper_abstract):
     FeishuAPPID = os.environ.get("APP_ID")
@@ -258,7 +304,7 @@ def sent_to_feishu(update_time, paper_title, paper_url, repo_url, paper_abstract
             "template_variable": {
                 "paper_title": paper_title,
                 "update_time": str(update_time),
-                "paper_abstract": paper_abstract,
+                "abstract": paper_abstract,
                 "paper_url": paper_url,
                 "repo_url": repo_url,
             },
@@ -419,8 +465,9 @@ def get_daily_papers(topic, query="agent", max_results=2):
             # 如果是昨天的paper则推送到飞书
             if check_update_time(str(update_time)) and sent_paper_num < 2:
                 cnabstract = get_cn_abstract(paper_abstract)
+                summarize_abstract = get_summarize_abstract(cnabstract)
                 sent_to_feishu(
-                    update_time, paper_title, paper_url, repo_url, cnabstract
+                    update_time, paper_title, paper_url, repo_url, summarize_abstract
                 )
                 sent_paper_num += 1
 
