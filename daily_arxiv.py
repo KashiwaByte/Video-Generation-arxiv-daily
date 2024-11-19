@@ -252,7 +252,7 @@ def get_summarize_abstract(text):
         streaming=False,
     )
 
-    messages = [SystemMessage(role = "system" , content='你是一个学术论文摘要的解析大师，你会接受到学术论文的摘要，理解后解析为如下两个格式1.解决了什么问题。2.有什么创新点。'), ChatMessage(
+    messages = [SystemMessage(role = "system" , content='你是一个学术论文摘要的解析大师，你会接受到学术论文的摘要，理解后严格解析为如下两个分类的内容1.解决了什么问题。2.有什么创新点。（不要添加无关的分类'), ChatMessage(
         role="user",
         content='超高分辨率（Uhr）遥感图像（RSI）（例如，100，000$\乘以$100，000像素或更多）对当前遥感多模态大型语言模型（RSMLLM）提出了重大挑战。如果选择将Uhr图像的大小调整为标准输入图像大小，则Uhr图像所包含的大量空间和上下文信息将被忽略。否则，这些图像的原始大小经常超过标准RSMLLM的令牌限制，使得难以处理整个图像并捕获长程依赖关系以基于丰富的视觉上下文来回答查询。在本文中，我们介绍了ImageRag for RS，这是一个无需训练的框架，用于解决分析Uhr遥感图像的复杂性。通过将Uhr遥感图像分析任务转化为图像的长上下文选择任务，设计了一种基于检索增强生成（RAG）技术的图像上下文检索机制（ImageRag）。ImageRag的核心创新在于它能够选择性地检索和关注Uhr图像中最相关的部分，作为与给定查询相关的视觉上下文。在该框架中，提出了快速路径和慢速路径来高效地处理该任务。ImageRag允许RSMLLMS管理来自Uhr RSI的大量上下文和空间信息，确保分析既准确又高效。'
     ),ChatMessage(role = "assistant", content = """
