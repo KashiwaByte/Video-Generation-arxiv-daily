@@ -359,7 +359,7 @@ def check_update_time(update_time_str):
         print(f"Invalid date format: {update_time_str}")
         return None
 
-    yesterday = datetime.date.today() - datetime.timedelta(days=7)
+    yesterday = datetime.date.today() - datetime.timedelta(days=6)
     return update_time == yesterday
 
 
