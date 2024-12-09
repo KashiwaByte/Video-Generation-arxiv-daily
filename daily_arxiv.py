@@ -357,7 +357,7 @@ def check_update_time(update_time_str):
         print(f"Invalid date format: {update_time_str}")
         return None
 
-    yesterday = datetime.date.today() - datetime.timedelta(days=7)
+    yesterday = datetime.date.today() - datetime.timedelta(days=180)
     return update_time == yesterday
 
 
@@ -461,7 +461,7 @@ def get_daily_papers(topic, query="agent", max_results=2):
                 )
 
             # 如果是昨天的paper则推送到飞书
-            if check_update_time(str(update_time)) and sent_paper_num < 2:
+            if check_update_time(str(update_time)) and sent_paper_num < 2 and repo_url is not None:
                 cnabstract = get_cn_abstract(paper_abstract)
                 summarize_abstract = get_summarize_abstract(cnabstract)
                 sent_to_feishu(
