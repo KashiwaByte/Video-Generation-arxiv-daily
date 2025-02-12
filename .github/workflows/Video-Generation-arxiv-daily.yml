@@ -59,12 +59,12 @@ jobs:
           XFAPISECRET: ${{ secrets.XFAPISECRET }}
           XFAPPID: ${{ secrets.XFAPPID }}
 
-      - name: Push new RAG-VectorDatabase-arxiv-daily.md
+      - name: Push new Video-Generation-arxiv-daily.md
         uses: github-actions-x/commit@v2.9
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "Github Action Automatic Update RAG and VectorDatabase Arxiv Papers"
-          files: README.md docs/RAG-VectorDatabase-arxiv-daily.json
+          commit-message: "Github Action Automatic Update Video-Generation Arxiv Papers"
+          files: README.md docs/Video-Generation-arxiv-daily.json
           rebase: 'true'
           name: ${{ env.GITHUB_USER_NAME }}
           email: ${{ env.GITHUB_USER_EMAIL }}

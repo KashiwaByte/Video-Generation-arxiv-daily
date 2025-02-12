@@ -1,10 +1,10 @@
-title: RAG-VectorDatabase arxiv daily
-description: Automatically Update RAG and VectorDatabase Papers Daily using Github Actions (Update Every 12th hours)
+title: Video-Generation arxiv daily
+description: Automatically Update Video-Generation Papers Daily using Github Actions (Update Every 12th hours)
 show_downloads: true
 
 github:
-  zip_url: https://github.com/KashiwaByte/RAG-VectorDatabase-arxiv-daily
-  another_url: https://github.com/KashiwaByte/RAG-VectorDatabase-arxiv-daily
+  zip_url: https://github.com/KashiwaByte/Video-Generation-arxiv-daily
+  another_url: https://github.com/KashiwaByte/Video-Generation-arxiv-daily
 
 ## add remote theme
 remote_theme: jekyll/minima@v2.5.1

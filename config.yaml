@@ -12,7 +12,7 @@ publish_gitpage: False
 publish_wechat: False
 
 # file paths
-json_readme_path: './docs/RAG-VectorDatabase-arxiv-daily.json'
+json_readme_path: './docs/Video-Generation-arxiv-daily.json'
 
 
 
