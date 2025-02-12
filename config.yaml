@@ -20,8 +20,20 @@ md_readme_path: 'README.md'
 
 
 keywords:
-    "VectorDatabase":
-        filters: ["approximate AND nearest AND neighbor AND algorithms AND search"]
+    "Foundation Video Models":
+        filters: ["Foundation AND Video AND Models "]
+    "Long Video Generation":
+        filters: ["Long AND Video AND Generation "]
+    "Long Video Generation":
+        filters: ["Efficient AND Video AND Generation "]
+    "Controllable Video  Generation":
+        filters: ["Controllable AND Video AND Generation "]
+    "Human Video  Generation":
+        filters: ["Human AND Video AND Generation "]
+    "Video Editing":
+        filters: [" Video AND Editing "]
+    "Video Generation Evaluation":
+        filters: ["Evaluation AND Video AND Generation "]
     "RAG":
         filters: ["RAG AND LLM"]
 
