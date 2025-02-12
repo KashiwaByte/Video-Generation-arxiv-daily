@@ -5,7 +5,7 @@ repo_name: "RAG-VectorDatabase-arxiv-daily"
 show_authors: True
 show_links: True
 show_badge: True
-max_results: 100
+max_results: 50
 
 publish_readme: True
 publish_gitpage: False
@@ -20,21 +20,19 @@ md_readme_path: 'README.md'
 
 
 keywords:
-    "Foundation Video Models":
-        filters: ["Foundation AND Video AND Models "]
+    "Video Generative Foundation Models":
+        filters: ["Foundation AND Video AND Models AND Generative"]
     "Long Video Generation":
         filters: ["Long AND Video AND Generation "]
-    "Long Video Generation":
+    "Efficient Video Generation":
         filters: ["Efficient AND Video AND Generation "]
     "Controllable Video  Generation":
         filters: ["Controllable AND Video AND Generation "]
     "Human Video  Generation":
         filters: ["Human AND Video AND Generation "]
     "Video Editing":
-        filters: [" Video AND Editing "]
+        filters: ["Video AND Editing "]
     "Video Generation Evaluation":
         filters: ["Evaluation AND Video AND Generation "]
-    "RAG":
-        filters: ["RAG AND LLM"]
 
 

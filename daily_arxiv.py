@@ -453,12 +453,13 @@ def get_daily_papers(topic, query="agent", max_results=2):
                 )
 
             else:
-                content[paper_key] = "|**{}**|**[{}]({})**|**{}**|null|{}|\n".format(
-                    update_time, paper_title, paper_url, paper_comment, paper_abstract
-                )
-                content_to_web[paper_key] = "- {}, **{}**, Paper: [{}]({}),{}".format(
-                    update_time, paper_title, paper_url, paper_url, paper_abstract
-                )
+                pass
+                # content[paper_key] = "|**{}**|**[{}]({})**|**{}**|null|{}|\n".format(
+                #     update_time, paper_title, paper_url, paper_comment, paper_abstract
+                # )
+                # content_to_web[paper_key] = "- {}, **{}**, Paper: [{}]({}),{}".format(
+                #     update_time, paper_title, paper_url, paper_url, paper_abstract
+                # )
 
             # 如果是昨天的paper则推送到飞书
             if check_update_time(str(update_time))  and repo_url is not None:
